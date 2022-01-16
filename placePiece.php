@@ -103,19 +103,49 @@ function checkTurn($pdo, $playerId, $gameId, $data)
 
     if ($currentPlayer == 1 and $playerId == $p1id)
     {
-        function placepiece()
+        placepiece($pdo, $data, 2);
     }
     elseif ($currentPlayer == 2 and $playerId == $p2id)
     {
-        function placepiece()
+        placepiece($pdo, $data, 1);
     }
     else
     {
         echo json_encode(array('message' => 'Wrong Turn'));
     }
+}
 
-function placepiece($pdo,$data)
+function placepiece($pdo, $data, $currentPlayer)
 {
+    $gameId = $data['gameid'];
 
+    //pairno ta stoixeia tou paixnidiou
+    $sql = 'SELECT * FROM games WHERE id = ?';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$gameId]);
+    $result = $stmt->fetch();
+
+    //metatropi apo json se assoc array
+    $jsonResult = json_decode($result->board, true);
+
+
+    //pairno to board
+    $decodedData = json_decode($result->board);
+    //kano neo gameboard kai meta to gemizo
+    $board = new GameBoard();
+    $board->init($decodedData);
+
+    //vrisko to piece kai to pernao
+    $selected = $board->getSelectedPiece();
+    $board->placePiece($data['x'],$data['y'], $selected);
+
+    //Allagi paixias
+    $board->setCurrentPlayer($currentPlayer);
+
+    //pernao ton neo pinaka stin vasi
+    $sql = 'UPDATE games SET board = ? WHERE id = ?';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([json_encode($board), json_decode($result->id, true)]);
 }
-}
+
+?>

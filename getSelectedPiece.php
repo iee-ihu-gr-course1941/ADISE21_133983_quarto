@@ -97,3 +97,4 @@ function getSelectedPiece($pdo, $gameId)
 
     return $selectedPiece;
 }
+?>

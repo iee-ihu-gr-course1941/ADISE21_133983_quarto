@@ -48,21 +48,22 @@ class GameBoard
 
 
     public function getSelectedPiece() {
-        return $selectedPiece;
+        return $this->selectedPiece;
     }
 
     public function setSelectedPiece($selectedPiece)
     {
         //elegxos an einai diathesimo to pioni
         if (!in_array ($selectedPiece, $this->availablePieces)) {
-          echo "false";
+          //echo "false";
           return false;
         }
         //epilego to pioni
         $this->selectedPiece = $selectedPiece;
 
         //to vgazo apo ta diathesima
-        unset($this->availablePieces[$selectedPiece]);
+        $index = array_search($selectedPiece, array_keys($this->availablePieces));
+        unset($this->availablePieces[$index]);
 
         return true;
     }
@@ -97,12 +98,12 @@ class GameBoard
         }
 
         //elegxos an i thesi sto board einai keni
-        if (!$board[$x][$y] == "") {
+        if (!$this->board[$x][$y] == "") {
           return false;
         }
 
         //topotheto to pioni kai epistrefo true
-        $board[$x-1][$y-1] = $piece;
+        $this->board[$x-1][$y-1] = $piece;
         return true;
     }
 

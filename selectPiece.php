@@ -114,8 +114,8 @@ function checkTurn($pdo, $playerId, $gameId, $data)
         echo json_encode(array('message' => 'Wrong Turn'));
     }
 }
+
 //pernao to pdo gia na doulepso tin vasi
-//ti eidos einai to pio true i false yparxei sto sto $data
 //sto result einai to game apo opou tha paro to board
 function selectPiece($pdo, $data, $result)
 {
@@ -151,6 +151,8 @@ function selectPiece($pdo, $data, $result)
         $sql = 'UPDATE games SET board = ? WHERE id = ?';
         $stmt = $pdo->prepare($sql);
         $stmt->execute([json_encode($board),json_decode($result->id, true)]);
+
+        
     }
 
 }
