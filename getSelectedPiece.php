@@ -24,7 +24,6 @@ $data = json_decode($json, true);
 
 $gameId = $data['gameid'];
 
-
 //elegxo an yparxei header
 if (isset($_SERVER['HTTP_X_AUTHENTICATION'])) {
   $headers = trim($_SERVER["HTTP_X_AUTHENTICATION"]);
@@ -48,8 +47,7 @@ if (isset($_SERVER['HTTP_X_AUTHENTICATION'])) {
     //elegxos an thelei na paixei sto sosto game
     if (checkGame($pdo, $playerId, $gameId, $data))
     {
-        //an einai sto sosto game elegxo an einai i seira tou
-        checkTurn($pdo, $playerId, $gameId, $data);
+        echo json_encode(getSelectedPiece($pdo, $gameId));
     }
     else
     {
@@ -85,7 +83,7 @@ function checkGame($pdo, $playerId, $gameId)
     }
 }
 
-function checkTurn($pdo, $playerId, $gameId, $data)
+function getSelectedPiece($pdo, $gameId)
 {
     //pairno ta stoixeia tou paixnidiou
     $sql = 'SELECT * FROM games WHERE id = ?';
@@ -93,24 +91,9 @@ function checkTurn($pdo, $playerId, $gameId, $data)
     $stmt->execute([$gameId]);
     $result = $stmt->fetch();
 
-    //metatropi apo json se assoc array
+    //pairno to epilegmeno pioni
     $jsonResult = json_decode($result->board, true);
-    $currentPlayer = $jsonResult['currentPlayer'];
+    $selectedPiece = $jsonResult['selectedPiece'];
 
-    //diavazo ta id gia p1 kai p2
-    $p1id = $jsonResult = json_decode($result->p1id, true);
-    $p2id = $jsonResult = json_decode($result->p2id, true);
-
-    if ($currentPlayer == 1 and $playerId == $p1id)
-    {
-        //placepiecemethodhere
-    }
-    elseif ($currentPlayer == 2 and $playerId == $p2id)
-    {
-        //placepiecemethodhere
-    }
-    else
-    {
-        echo json_encode(array('message' => 'Wrong Turn'));
-    }
+    return $selectedPiece;
 }
