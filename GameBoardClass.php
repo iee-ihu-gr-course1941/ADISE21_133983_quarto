@@ -58,8 +58,12 @@ class GameBoard
           echo "false";
           return false;
         }
-
+        //epilego to pioni
         $this->selectedPiece = $selectedPiece;
+
+        //to vgazo apo ta diathesima
+        unset($availablePieces[$selectedPiece]);
+        
         return true;
     }
 
