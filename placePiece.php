@@ -103,11 +103,11 @@ function checkTurn($pdo, $playerId, $gameId, $data)
 
     if ($currentPlayer == 1 and $playerId == $p1id)
     {
-        placepiece($pdo, $data, 2);
+        placepiece($pdo, $data);
     }
     elseif ($currentPlayer == 2 and $playerId == $p2id)
     {
-        placepiece($pdo, $data, 1);
+        placepiece($pdo, $data);
     }
     else
     {
@@ -115,7 +115,7 @@ function checkTurn($pdo, $playerId, $gameId, $data)
     }
 }
 
-function placepiece($pdo, $data, $currentPlayer)
+function placepiece($pdo, $data)
 {
     $gameId = $data['gameid'];
 
@@ -139,8 +139,6 @@ function placepiece($pdo, $data, $currentPlayer)
     $selected = $board->getSelectedPiece();
     $board->placePiece($data['x'],$data['y'], $selected);
 
-    //Allagi paixias
-    $board->setCurrentPlayer($currentPlayer);
 
     //pernao ton neo pinaka stin vasi
     $sql = 'UPDATE games SET board = ? WHERE id = ?';
