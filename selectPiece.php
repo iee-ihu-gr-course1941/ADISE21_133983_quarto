@@ -131,25 +131,26 @@ function selectPiece($pdo, $data, $result)
     {
         echo json_encode(array('message' => 'Piece is NOT selected'));
     }
-
     else
     {
+
         // elegxo pios paizei kai allazo tin paiksia
         if ($board->getCurrentPlayer() == 1)
         {
-            $board->setCurrentPlayer(2)
+            $board->setCurrentPlayer(2);
         }
         else
         {
-            $board->setCurrentPlayer(1)
+            $board->setCurrentPlayer(1);
         }
 
         //minima oti dialekse pioni
         echo json_encode(array('message' => 'Piece selected'));
     }
 
-    
-
+    $sql = 'UPDATE games SET board = ? WHERE id = ?';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([json_encode($board),json_decode($result->id, true)]);
 }
 
 ?>

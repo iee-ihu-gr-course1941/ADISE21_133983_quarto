@@ -54,11 +54,12 @@ class GameBoard
     public function setSelectedPiece($selectedPiece)
     {
         //elegxos an einai diathesimo to pioni
-        if (!in_array ($piece, $availablePieces)) {
+        if (!in_array ($selectedPiece, $this->availablePieces)) {
+          echo "false";
           return false;
         }
 
-        $this->$selectedPiece = $selectedPiece;
+        $this->selectedPiece = $selectedPiece;
         return true;
     }
 
@@ -71,7 +72,7 @@ class GameBoard
     }
 
     public function getCurrentPlayer() {
-        return $currentPlayer;
+        return $this->currentPlayer;
     }
 
     public function setCurrentPlayer($currentPlayer) {
