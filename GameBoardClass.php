@@ -38,14 +38,28 @@ class GameBoard
         $this->currentPlayer = 1;
     }
 
+    public function init($data)
+    {
+        $this->selectedPiece = $data->selectedPiece;
+        $this->availablePieces =$data->availablePieces;
+        $this->board = $data->board;
+        $this->currentPlayer = $data->currentPlayer;
+    }
 
 
     public function getSelectedPiece() {
         return $selectedPiece;
     }
 
-    public function setSelectedPiece($selectedPiece) {
+    public function setSelectedPiece($selectedPiece)
+    {
+        //elegxos an einai diathesimo to pioni
+        if (!in_array ($piece, $availablePieces)) {
+          return false;
+        }
+
         $this->$selectedPiece = $selectedPiece;
+        return true;
     }
 
     public function getAvailablePieces() {
@@ -64,12 +78,8 @@ class GameBoard
         $this->currentPlayer = $currentPlayer;
     }
 
-    private function placePiece($x, $y, $piece)
+    public function placePiece($x, $y, $piece)
     {
-        //elegxos an einai diathesimo to pioni
-        if (!in_array ($piece, $availablePieces)) {
-          return false;
-        }
 
         //elegxos an to x einai entos orion
         if ($x < 1 or $x > 4) {
@@ -91,7 +101,7 @@ class GameBoard
         return true;
     }
 
-    private function selectPiece($black, $tall, $round, $solid)
+    public function selectPiece($black, $tall, $round, $solid)
     {
         //o paixtis mou dinei ta xaraktiristika tou piece
         //kai sintheto to string
