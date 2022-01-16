@@ -44,6 +44,10 @@ class GameBoard
         return $selectedPiece;
     }
 
+    public function setSelectedPiece($selectedPiece) {
+        $this->$selectedPiece = $selectedPiece;
+    }
+
     public function getAvailablePieces() {
         return $availablePieces;
     }
@@ -91,7 +95,7 @@ class GameBoard
     {
         //o paixtis mou dinei ta xaraktiristika tou piece
         //kai sintheto to string
-        
+
         $piece = "";
         $piece .= $black ? "b" : "w";
         $piece .= $tall ? "t" : "s";
