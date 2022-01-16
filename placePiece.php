@@ -144,6 +144,8 @@ function placepiece($pdo, $data)
     $sql = 'UPDATE games SET board = ? WHERE id = ?';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([json_encode($board), json_decode($result->id, true)]);
+
+    echo json_encode($board->board);
 }
 
 ?>
