@@ -103,14 +103,19 @@ function checkTurn($pdo, $playerId, $gameId, $data)
 
     if ($currentPlayer == 1 and $playerId == $p1id)
     {
-        //placepiecemethodhere
+        function placepiece()
     }
     elseif ($currentPlayer == 2 and $playerId == $p2id)
     {
-        //placepiecemethodhere
+        function placepiece()
     }
     else
     {
         echo json_encode(array('message' => 'Wrong Turn'));
     }
+
+function placepiece($pdo,$data)
+{
+
+}
 }

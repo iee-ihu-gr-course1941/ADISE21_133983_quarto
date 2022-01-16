@@ -146,11 +146,13 @@ function selectPiece($pdo, $data, $result)
 
         //minima oti dialekse pioni
         echo json_encode(array('message' => 'Piece selected'));
+
+
+        $sql = 'UPDATE games SET board = ? WHERE id = ?';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([json_encode($board),json_decode($result->id, true)]);
     }
 
-    $sql = 'UPDATE games SET board = ? WHERE id = ?';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([json_encode($board),json_decode($result->id, true)]);
 }
 
 ?>

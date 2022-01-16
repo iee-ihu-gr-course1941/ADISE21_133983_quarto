@@ -62,8 +62,8 @@ class GameBoard
         $this->selectedPiece = $selectedPiece;
 
         //to vgazo apo ta diathesima
-        unset($availablePieces[$selectedPiece]);
-        
+        unset($this->availablePieces[$selectedPiece]);
+
         return true;
     }
 
