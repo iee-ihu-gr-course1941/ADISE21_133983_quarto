@@ -1,4 +1,9 @@
 <?php
+
+include 'GameBoardClass.php';
+
+$initialBoard = new GameBoard();
+
 //kodikoi ktlp gia tin sindesi stin vasi
 $host = 'localhost';
 $user = 'root';
@@ -29,7 +34,7 @@ if (isset($_SERVER['HTTP_X_AUTHENTICATION'])) {
   }
   else {
     //an yparxei to token stin vasi
-    createGame($result->id,$pdo);
+    createGame($result->id,$pdo,$initialBoard);
   }
 
 } else {
@@ -37,14 +42,16 @@ if (isset($_SERVER['HTTP_X_AUTHENTICATION'])) {
   echo json_encode(array('message' => 'No server headers'));
 }
 
-function createGame($p1id,$pdo)
+function createGame($p1id,$pdo,$initialBoard)
 {
-  //eisago to paixnidi stin vasi
-  $sql = 'INSERT INTO games (p1id,gamestatusid) values(?,1)';
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute([$p1id]);
+    $jsonBoard = json_encode($initialBoard);
 
-  //minima epitixias
-  echo json_encode(array('message' => 'Game Created'));
+    //eisago to paixnidi stin vasi
+    $sql = 'INSERT INTO games (p1id,gamestatusid,board) values(?,1,?)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$p1id, $jsonBoard]);
+
+    //minima epitixias
+    echo json_encode(array('message' => 'Game Created'));
 }
 ?>

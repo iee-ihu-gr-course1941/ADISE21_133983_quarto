@@ -2,32 +2,32 @@
 class GameBoard
 {
     //string me to pioni pou einai selected
-    private $selectedPiece;
+    public $selectedPiece;
 
     //int 1 gia p1 2 gia p2
-    private $currentPlayer;
+    public $currentPlayer;
 
     //ta pionia
     //black/white
     //tall/short
     //round/square
     //hollow/solid
-    private $initialPieces = array("wsrh", "wsss", "wssh", "wsrs", "wtrh", "wtss", "wtsh", "wtrs",
+    public $initialPieces = array("wsrh", "wsss", "wssh", "wsrs", "wtrh", "wtss", "wtsh", "wtrs",
                                     "bsrh", "bsss", "bssh", "bsrs", "btrh", "btss", "btsh", "btrs");
 
     //pia einai diathesima
-    private $availablePieces;
+    public $availablePieces;
 
     //to game board
-    private $board;
+    public $board;
 
     //constructor
     public function __construct()
     {
-        $selectedPiece = "";
-        $availablePieces = $initialPieces;
+        $this->selectedPiece = "";
+        $this->availablePieces = $this->initialPieces;
 
-        $board = array
+        $this->board = array
                 (
                   array("", "", "", ""),
                   array("", "", "", ""),
@@ -35,7 +35,7 @@ class GameBoard
                   array("", "", "", "")
                 );
 
-        $currentPlayer = 1;
+        $this->currentPlayer = 1;
     }
 
 
@@ -104,6 +104,5 @@ class GameBoard
 
         return $piece;
     }
-
 }
 ?>
